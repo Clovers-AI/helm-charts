@@ -1,0 +1,22 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - '*'
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  validate_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Lint Helm Charts
+        run: |
+          for charts in `ls -1 charts/`; do helm lint charts/$charts/; done
