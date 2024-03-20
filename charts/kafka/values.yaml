@@ -26,23 +26,23 @@ kafka:
           annotations:
             external-dns.alpha.kubernetes.io/hostname: kafka-bootstrap.placeholder.clovers.ai.
             external-dns.alpha.kubernetes.io/ttl: "600"
-          brokers:
-            - broker: 0
-              host: kafka-b0.placeholder.clovers.ai
-              annotations:
-                external-dns.alpha.kubernetes.io/hostname: kafka-b0.placeholder.clovers.ai.
-                external-dns.alpha.kubernetes.io/ttl: "600"
-            - broker: 1
-              host: kafka-b1.placeholder.clovers.ai
-              annotations:
-                external-dns.alpha.kubernetes.io/hostname: kafka-b1.placeholder.clovers.ai.
-                external-dns.alpha.kubernetes.io/ttl: "600"
-            - broker: 2
-              host: kafka-b2.placeholder.clovers.ai
-              annotations:
-                external-dns.alpha.kubernetes.io/hostname: kafka-b2.placeholder.clovers.ai.
-                external-dns.alpha.kubernetes.io/ttl: "600"
-          class: ingress-kafka
+        brokers:
+          - broker: 0
+            host: kafka-b0.placeholder.clovers.ai
+            annotations:
+              external-dns.alpha.kubernetes.io/hostname: kafka-b0.placeholder.clovers.ai.
+              external-dns.alpha.kubernetes.io/ttl: "600"
+          - broker: 1
+            host: kafka-b1.placeholder.clovers.ai
+            annotations:
+              external-dns.alpha.kubernetes.io/hostname: kafka-b1.placeholder.clovers.ai.
+              external-dns.alpha.kubernetes.io/ttl: "600"
+          - broker: 2
+            host: kafka-b2.placeholder.clovers.ai
+            annotations:
+              external-dns.alpha.kubernetes.io/hostname: kafka-b2.placeholder.clovers.ai.
+              external-dns.alpha.kubernetes.io/ttl: "600"
+        class: ingress-kafka
   storage:
     type: persistent-claim
     size: 100Gi
