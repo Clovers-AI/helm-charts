@@ -14,6 +14,35 @@ kafka:
       tls: true
       authentication:
         type: tls
+    - name: tls
+      port: 9094
+      type: ingress
+      tls: true
+      authentication:
+        type: scram-sha-512
+      configuration:
+        bootstrap:
+          host: kafka-bootstrap.placeholder.clovers.ai
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: kafka-bootstrap.placeholder.clovers.ai.
+            external-dns.alpha.kubernetes.io/ttl: "600"
+          brokers:
+            - broker: 0
+              host: kafka-b0.placeholder.clovers.ai
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: kafka-b0.placeholder.clovers.ai.
+                external-dns.alpha.kubernetes.io/ttl: "600"
+            - broker: 1
+              host: kafka-b1.placeholder.clovers.ai
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: kafka-b1.placeholder.clovers.ai.
+                external-dns.alpha.kubernetes.io/ttl: "600"
+            - broker: 2
+              host: kafka-b2.placeholder.clovers.ai
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: kafka-b2.placeholder.clovers.ai.
+                external-dns.alpha.kubernetes.io/ttl: "600"
+          class: ingress-kafka
   storage:
     type: persistent-claim
     size: 100Gi
