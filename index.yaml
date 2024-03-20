@@ -23,6 +23,16 @@ entries:
     version: 1.0.0
   kafka:
   - apiVersion: v2
+    appVersion: 1.0.2
+    created: "2024-03-20T14:50:39.126972031Z"
+    description: Kafka deployment as a Helm Chart
+    digest: 4a56e9e039508936d490fe4eba935fe7f851cf89dfd0a0ca2065136cb0526642
+    name: kafka
+    type: application
+    urls:
+    - https://github.com/Clovers-AI/helm-charts/releases/download/kafka-1.0.2/kafka-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     appVersion: 1.0.1
     created: "2024-03-20T14:26:58.244406292Z"
     description: Kafka deployment as a Helm Chart
@@ -42,4 +52,4 @@ entries:
     urls:
     - https://github.com/Clovers-AI/helm-charts/releases/download/kafka-1.0.0/kafka-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-20T14:26:58.244470599Z"
+generated: "2024-03-20T14:50:39.126981228Z"
