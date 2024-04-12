@@ -92,11 +92,21 @@ spec:
             timeoutSeconds: 5
           {{- end }}
           {{- end }}
-          {{- if .Values.secretMounts}}
+          {{- if or(.Values.secretMounts .Values.caMount)}}
           volumeMounts:
+            {{- if Values.secretMounts}}
             - mountPath: {{ .Values.secretMounts.mountPath }}
               name: secret-mount
               readOnly: true
+            {{- end }}
+            {{- if Values.caMounts}}
+            {{- range $key, $value  := .Values.caMounts.ca }}
+            - mountPath: /etc/ssl/certs/{{ $key }}
+              subPath: {{ $key }}
+              name: ca-mount
+              readOnly: true
+            {{- end }}
+            {{- end }}
           {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -110,9 +120,18 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.secretMounts}}
+      {{- if or(.Values.secretMounts .Values.caMounts)}}
       volumes:
+        {{- if .Values.secretMounts}}
         - name: secret-mount
           secret:
             secretName: {{ include "helm.fullname" . }}-secrets-mount
+        {{- end }}
+        {{- if .Values.caMounts}}
+        - emptyDir: {}
+          name: shared-ca-certificate-vol
+        - name: ca-mount
+          secret:
+            secretName: {{ include "helm.fullname" . }}-ca-mount
+        {{- end }}
       {{- end }}
