@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   app:
   - apiVersion: v2
+    appVersion: 1.0.7
+    created: "2024-04-12T16:21:53.840308387Z"
+    description: Helm chart for default application
+    digest: e41c75e1c7275feefc249e69f9f6d9b2394fbbfed317102d5e74ef9d7de77eaa
+    name: app
+    type: application
+    urls:
+    - https://github.com/Clovers-AI/helm-charts/releases/download/app-1.0.7/app-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
     appVersion: 1.0.6
     created: "2024-04-12T12:42:00.436742209Z"
     description: Helm chart for default application
@@ -172,4 +182,4 @@ entries:
     urls:
     - https://github.com/Clovers-AI/helm-charts/releases/download/kafka-1.0.0/kafka-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-12T15:14:59.340443142Z"
+generated: "2024-04-12T16:21:53.840376787Z"
