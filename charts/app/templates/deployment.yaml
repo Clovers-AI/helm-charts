@@ -94,12 +94,12 @@ spec:
           {{- end }}
           {{- if or .Values.secretMounts .Values.caMount }}
           volumeMounts:
-            {{- if Values.secretMounts}}
+            {{- if .Values.secretMounts}}
             - mountPath: {{ .Values.secretMounts.mountPath }}
               name: secret-mount
               readOnly: true
             {{- end }}
-            {{- if Values.caMounts}}
+            {{- if .Values.caMounts}}
             {{- range $key, $value  := .Values.caMounts.ca }}
             - mountPath: /etc/ssl/certs/{{ $key }}
               subPath: {{ $key }}
