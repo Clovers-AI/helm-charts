@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 revisionHistoryLimit: 1
-replicaCount: 1
+replicaCount: 3
 deploymentPort: 3000
 
 image:
