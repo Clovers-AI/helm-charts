@@ -92,7 +92,7 @@ spec:
             timeoutSeconds: 5
           {{- end }}
           {{- end }}
-          {{- if or .Values.secretMounts .Values.caMount }}
+          {{- if or .Values.secretMounts .Values.caMounts }}
           volumeMounts:
             {{- if .Values.secretMounts}}
             - mountPath: {{ .Values.secretMounts.mountPath }}
@@ -128,8 +128,6 @@ spec:
             secretName: {{ include "helm.fullname" . }}-secrets-mount
         {{- end }}
         {{- if .Values.caMounts}}
-        - emptyDir: {}
-          name: shared-ca-certificate-vol
         - name: ca-mount
           secret:
             secretName: {{ include "helm.fullname" . }}-ca-mount
