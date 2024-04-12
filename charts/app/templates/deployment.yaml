@@ -92,7 +92,7 @@ spec:
             timeoutSeconds: 5
           {{- end }}
           {{- end }}
-          {{- if or(.Values.secretMounts .Values.caMount)}}
+          {{- if or .Values.secretMounts .Values.caMount }}
           volumeMounts:
             {{- if Values.secretMounts}}
             - mountPath: {{ .Values.secretMounts.mountPath }}
@@ -120,7 +120,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if or(.Values.secretMounts .Values.caMounts)}}
+      {{- if or .Values.secretMounts .Values.caMounts }}
       volumes:
         {{- if .Values.secretMounts}}
         - name: secret-mount
