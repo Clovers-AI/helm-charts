@@ -11,10 +11,10 @@ spec:
     template:
       type: kubernetes.io/dockerconfigjson
       data:
-        .dockerconfigjson: '{{ "{{" }} . | toJson {{ "}}" }}'
+        .dockerconfigjson: '{{ "{{" }} .auths {{ "}}" }}'
     name: dockerconfigjson
     creationPolicy: Owner
   data:
-  - secretKey: .dockercfg
+  - secretKey: auths
     remoteRef:
       key:  dockerconfigjson
