@@ -11,7 +11,7 @@ spec:
     template:
       type: kubernetes.io/dockerconfigjson
       data:
-        .dockerconfigjson: '{{ "{{" }}.mysecret{{ "}}" }}'
+        .dockerconfigjson: '{{ "{{" }} .mysecret | b64dec {{ "}}" }}'
     name: dockerconfigjson
     creationPolicy: Owner
   data:
