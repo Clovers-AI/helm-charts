@@ -224,6 +224,16 @@ entries:
     version: 1.0.0
   legacy-app:
   - apiVersion: v2
+    appVersion: 1.0.8
+    created: "2024-04-29T20:52:04.281413858Z"
+    description: Helm chart for default application
+    digest: e325bc2bbbff95361faf27c6fea1a38227d08dbc388e31a2f3516895ef71aee7
+    name: legacy-app
+    type: application
+    urls:
+    - https://github.com/Clovers-AI/helm-charts/releases/download/legacy-app-1.0.8/legacy-app-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
     appVersion: 1.0.7
     created: "2024-04-29T20:18:05.640499754Z"
     description: Helm chart for default application
@@ -303,4 +313,4 @@ entries:
     urls:
     - https://github.com/Clovers-AI/helm-charts/releases/download/legacy-app-1.0.0/legacy-app-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-29T20:18:05.640576888Z"
+generated: "2024-04-29T20:52:04.281514676Z"
