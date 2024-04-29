@@ -1,0 +1,107 @@
+{{- $fullName := include "helm.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "helm.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "helm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "helm.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "helm.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ trim .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.deploymentPort | default 80 }}
+              protocol: TCP
+          {{- if .Values.env }}
+          env:
+            {{- if .Values.env.configMap}}
+            {{- range $key, $val := .Values.env.configMap }}
+            - name: {{ $key }}
+              valueFrom:
+                configMapKeyRef:
+                  name:  {{ $fullName }}-configmap
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.env.secrets}}
+            {{- range $key,$value := .Values.env.secrets}}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $fullName }}-secrets
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+          {{- end }}
+          {{- if or .Values.secretMounts .Values.caMounts }}
+          volumeMounts:
+            {{- if .Values.secretMounts}}
+            - mountPath: {{ .Values.secretMounts.mountPath }}
+              name: secret-mount
+              readOnly: true
+            {{- end }}
+            {{- if .Values.caMounts}}
+            {{- range $key, $value  := .Values.caMounts.ca }}
+            - mountPath: /etc/ssl/certs/{{ $key }}
+              subPath: {{ $key }}
+              name: ca-mount
+              readOnly: true
+            {{- end }}
+            {{- end }}
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if or .Values.secretMounts .Values.caMounts }}
+      volumes:
+        {{- if .Values.secretMounts}}
+        - name: secret-mount
+          secret:
+            secretName: {{ include "helm.fullname" . }}-secrets-mount
+        {{- end }}
+        {{- if .Values.caMounts}}
+        - name: ca-mount
+          secret:
+            secretName: {{ include "helm.fullname" . }}-ca-mount
+        {{- end }}
+      {{- end }}
