@@ -46,7 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "helm.selectorLabels" -}}
-app: {{ include "helm.name" . }}
+app: {{ .Release.Name }}
 harness.io/track: stable
 {{- end }}
 
