@@ -40,6 +40,14 @@ spec:
               containerPort: {{ .Values.deploymentPort | default 80 }}
               protocol: TCP
           {{- if .Values.env }}
+          {{- if eq .Values.disableHealthProbes false }}
+          {{- if .Values.readinessProbe }}
+          readinessProbe: {{ .Values.readinessProbe | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if .Values.livenessProbe }}
+          livenessProbe: {{ .Values.livenessProbe | toYaml | nindent 12 }}
+          {{- end }}
+          {{- end }}
           env:
             {{- if .Values.env.configMap}}
             {{- range $key, $val := .Values.env.configMap }}
