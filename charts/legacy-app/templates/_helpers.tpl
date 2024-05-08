@@ -56,6 +56,8 @@ Create the name of the service account to use
 {{- define "helm.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "helm.fullname" .) .Values.serviceAccount.name }}
+{{- else if .Values.serviceAccount.nameOverride }}
+{{- .Values.serviceAccount.nameOverride }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
