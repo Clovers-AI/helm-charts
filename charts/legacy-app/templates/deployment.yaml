@@ -49,6 +49,12 @@ spec:
           {{- end }}
           {{- end }}
           env:
+            - name: DD_ENV
+              value: {{ .Values.podAnnotations.environment | default dev }}
+            - name: DD_SERVICE
+              value: {{ .Values.image.repository }}
+            - name: DD_VERSION
+              value: {{ .Values.image.tag  }}
             {{- if .Values.env.configMap}}
             {{- range $key, $val := .Values.env.configMap }}
             - name: {{ $key }}
