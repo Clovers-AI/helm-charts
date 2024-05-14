@@ -50,7 +50,7 @@ spec:
           {{- end }}
           env:
             - name: DD_ENV
-              value: {{ .Values.podAnnotations.environment | default dev }}
+              value: {{ .Values.podAnnotations.environment | default "dev" }}
             - name: DD_SERVICE
               value: {{ .Values.image.repository }}
             - name: DD_VERSION
