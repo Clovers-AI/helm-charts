@@ -52,7 +52,7 @@ spec:
             - name: DD_ENV
               value: {{ .Values.podAnnotations.environment | default "dev" }}
             - name: DD_SERVICE
-              value: {{ .Values.image.repository }}
+              value: {{ (splitList "/" .Values.image.repository) | last | quote }}
             - name: DD_VERSION
               value: {{ .Values.image.tag  }}
             {{- if .Values.env.configMap}}
